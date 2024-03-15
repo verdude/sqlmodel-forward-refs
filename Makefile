@@ -19,6 +19,6 @@ check:
 	mypy main.py
 
 upgrade:
-	pyupgrade --py310-plus main.py
+	-pyupgrade --py310-plus main.py
 
 all: install check upgrade lint run
