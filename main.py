@@ -1,14 +1,14 @@
 from __future__ import annotations
 
-from sqlalchemy import Column, UnicodeText, create_engine
+from sqlalchemy import Column, UnicodeText
 from sqlalchemy.orm import sessionmaker
-from sqlmodel import Field, Relationship, SQLModel
+from sqlmodel import Field, Relationship, SQLModel, create_engine
 
 
 class User(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     name: str = Field(sa_column=Column(UnicodeText()))
-    addresses: list[Address] = Relationship(
+    addresses: list["Address"] = Relationship(
         back_populates="user", sa_relationship_kwargs={"uselist": True}
     )
 
@@ -16,14 +16,14 @@ class User(SQLModel, table=True):
 class Address(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     email: str = Field(sa_column=Column(UnicodeText()))
-    user_id: int = Field(foreign_key="users.id")
+    user_id: int = Field(foreign_key="user.id")
     user: User = Relationship(
         back_populates="addresses", sa_relationship_kwargs={"uselist": False}
     )
 
 
 engine = create_engine("sqlite:///example.db", echo=True)
-Session = sessionmaker(bind=engine)
+Session = sessionmaker(engine)
 
 SQLModel.metadata.create_all(engine)
 
