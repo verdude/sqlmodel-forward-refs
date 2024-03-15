@@ -1,0 +1,47 @@
+[tool.mypy]
+plugins = ["sqlalchemy.ext.mypy.plugin"]
+
+namespace_packages = true
+explicit_package_bases = true
+
+strict = true
+# unreachable checker has too many false positives
+warn_unreachable = false
+
+# These are enabled by strict mode.
+# We can enable them one by one if we desire.
+# Some of these require changes to almost all
+# route functions at a minimum.
+disallow_incomplete_defs = false
+disallow_untyped_defs = false
+disallow_untyped_calls = false
+no_implicit_reexport = false
+warn_return_any = false
+# for pyright 'compatibility'
+warn_unused_ignores = false
+
+enable_error_code = [
+  "redundant-expr",
+  "truthy-bool",
+  "ignore-without-code",
+  "unused-awaitable",
+  "type-arg",
+  "redundant-cast",
+  "comparison-overlap",
+  "unreachable",
+]
+
+# disabled optional checks (false by default)
+# explicitly excluded here.
+disable_error_code = [
+  "no-any-unimported",
+]
+
+# Error Formatting
+show_column_numbers = true
+show_error_context = true
+show_error_codes = true
+show_traceback = true
+pretty = true
+color_output = true
+error_summary = true
