@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-
 from sqlalchemy import Column, ForeignKey, Integer, String, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
@@ -13,7 +12,7 @@ class User(Base):
 
     id: int | None = Column(Integer, primary_key=True)
     name: str = Column(String)
-    addresses: list[Address] = relationship(
+    addresses: list["Address"] = relationship(
         "Address", back_populates="user", uselist=True
     )
 
