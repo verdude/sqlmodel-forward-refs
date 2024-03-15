@@ -2,6 +2,9 @@ SHELL=/usr/bin/env bash
 
 .PHONY: install lint check upgrade run all
 
+run:
+	python main.py
+
 install:
 	if [[ -z $$VIRTUAL_ENV ]]; then echo activate venv; exit 1; fi
 	pip install -r requirements.txt
@@ -17,8 +20,5 @@ check:
 
 upgrade:
 	pyupgrade --py310-plus main.py
-
-run:
-	python main.py
 
 all: install check upgrade lint run
