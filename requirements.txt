@@ -4,5 +4,5 @@ flake8==7.0.0
 isort==5.13.2
 mypy==1.9.0
 pyupgrade==3.15.1
-sqlmodel==0.0.16
-sqlalchemy[mypy]==2.0.28
+sqlmodel==0.0.9
+sqlalchemy[mypy]==1.4.41
