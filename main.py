@@ -1,35 +1,31 @@
 from __future__ import annotations
 
-from sqlalchemy import Column, ForeignKey, Integer, String, create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship, sessionmaker
-
-Base = declarative_base()
+from sqlalchemy import Column, UnicodeText, create_engine
+from sqlalchemy.orm import sessionmaker
+from sqlmodel import Field, Relationship, SQLModel
 
 
-class User(Base):
-    __tablename__ = "users"
-
-    id: int | None = Column(Integer, primary_key=True)
-    name: str = Column(String)
-    addresses: list["Address"] = relationship(
-        "Address", back_populates="user", uselist=True
+class User(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    name: str = Field(sa_column=Column(UnicodeText()))
+    addresses: list[Address] = Relationship(
+        back_populates="user", sa_relationship_kwargs={"uselist": True}
     )
 
 
-class Address(Base):
-    __tablename__ = "addresses"
-
-    id: int | None = Column(Integer, primary_key=True)
-    email: str = Column(String)
-    user_id: int = Column(Integer, ForeignKey("users.id"))
-    user: User = relationship("User", back_populates="addresses", uselist=False)
+class Address(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    email: str = Field(sa_column=Column(UnicodeText()))
+    user_id: int = Field(foreign_key="users.id")
+    user: User = Relationship(
+        back_populates="addresses", sa_relationship_kwargs={"uselist": False}
+    )
 
 
 engine = create_engine("sqlite:///example.db", echo=True)
 Session = sessionmaker(bind=engine)
 
-Base.metadata.create_all(engine)
+SQLModel.metadata.create_all(engine)
 
 session = Session()
 
