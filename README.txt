@@ -1,4 +1,4 @@
-SQLModel 0.0.16 + SQLAlchemy 2.0 Mapped attribute error:
+Python 3.10.13 + SQLModel 0.0.16 + SQLAlchemy 2.0 Mapped attribute error:
 
 sqlalchemy.exc.InvalidRequestError: When initializing mapper Mapper[User(user)], expression "relationship('list[Address]')" seems to be using a generic class as the argument to relationship(); please state the generic argument using an annotation, e.g. "addresses: Mapped[list['Address']] = relationship()"
 
