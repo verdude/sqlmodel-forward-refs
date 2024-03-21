@@ -1,4 +1,4 @@
-Forward reference issue with SQLModel 0.0.9 + SQLAlchemy 1.4
+Forward reference issue with Python 3.10.13 + SQLModel 0.0.9 + SQLAlchemy 1.4
 
 Reproduction steps:
 1. create virtual env and activate it.
